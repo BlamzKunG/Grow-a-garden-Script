@@ -8,16 +8,6 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
--- ล็อกตำแหน่งเพื่อไม่ให้กระเด็น
-local function lockCharacter()
-    character:WaitForChild("Humanoid"):ChangeState(Enum.HumanoidStateType.Physics)
-end
-
--- ปล่อยล็อก
-local function unlockCharacter()
-    character:WaitForChild("Humanoid"):ChangeState(Enum.HumanoidStateType.GettingUp)
-end
-
 -- กดปุ่ม E
 local function pressE()
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
