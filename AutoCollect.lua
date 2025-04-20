@@ -56,7 +56,7 @@ task.spawn(function()
             end
 
             humanoidRootPart.CFrame = CFrame.new(originalPos)
-            humanoidRootPart.Anchored = false -- ปลดล็อกตัว
+            humanoidRootPart.Anchored = true -- ปลดล็อกตัว
         end)
         task.wait(0.1)
     end
