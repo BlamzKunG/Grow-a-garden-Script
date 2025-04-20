@@ -1,6 +1,6 @@
 getgenv().AutoCollect = true
 
-local collectDelay = 0.01
+local collectDelay = 0.1
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
