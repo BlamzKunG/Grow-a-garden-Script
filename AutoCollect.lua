@@ -2,14 +2,14 @@
 getgenv().AutoCollect = true
 
 -- ตั้งค่าระยะเวลาในการวนลูป
-local collectDelay = 0.1
+local collectDelay = 0.01
 
 -- ฟังก์ชันจำลองการกด E
 local VirtualInputManager = game:GetService("VirtualInputManager")
 
 local function pressE()
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-    task.wait(0.05)
+    task.wait(0.01)
     VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
 end
 
@@ -35,7 +35,7 @@ task.spawn(function()
                                     if root and plant:IsA("BasePart") then
                                         local originalPos = root.Position
                                         root.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
-                                        task.wait(0.1)
+                                        task.wait(0.01)
                                         pressE()
                                         task.wait(collectDelay)
                                         root.CFrame = CFrame.new(originalPos)
@@ -49,6 +49,6 @@ task.spawn(function()
                 end
             end
         end)
-        task.wait(0.05)
+        task.wait(0.01)
     end
 end)
