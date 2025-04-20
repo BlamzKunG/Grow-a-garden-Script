@@ -103,7 +103,7 @@ task.spawn(function()
 		 
 		local start = tick()
 
-		while tick() - start < autoFarmCycleTime do
+		while tick() - start < autoFarmCycleTime and getgenv().FullAutoFarm do
 			pcall(function()
 				local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 				local root = character:WaitForChild("HumanoidRootPart")
