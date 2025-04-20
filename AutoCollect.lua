@@ -5,12 +5,21 @@ local VirtualInputManager = game:GetService("VirtualInputManager")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
--- c
+
 -- จำลองการกด E
 local function pressE()
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
     task.wait(0.01)
     VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+end
+
+-- ฟังก์ชันสลับลำดับแบบสุ่ม
+local function shuffle(tbl)
+    for i = #tbl, 2, -1 do
+        local j = math.random(i)
+        tbl[i], tbl[j] = tbl[j], tbl[i]
+    end
+    return tbl
 end
 
 -- ล็อกกล้องไปยัง Owner_Tag ของฟาร์มเรา
@@ -23,18 +32,11 @@ local function lockCameraToFarm()
             if ownerTag then
                 Camera.CameraType = Enum.CameraType.Scriptable
                 Camera.CFrame = CFrame.new(ownerTag.Position + Vector3.new(0, 10, 0), ownerTag.Position)
+                return true
             end
         end
     end
-end
-
--- ฟังก์ชันสลับลำดับแบบสุ่ม
-local function shuffle(tbl)
-    for i = #tbl, 2, -1 do
-        local j = math.random(i)
-        tbl[i], tbl[j] = tbl[j], tbl[i]
-    end
-    return tbl
+    return false
 end
 
 -- เริ่มล็อกกล้องครั้งแรก
@@ -67,22 +69,18 @@ task.spawn(function()
                             end
                         end
 
-                        -- สุ่มลำดับ
                         local randomized = shuffle(allPlants)
 
                         for _, plant in ipairs(randomized) do
                             if not getgenv().AutoCollect then break end
-                            local prompt = plant:FindFirstChildOfClass("ProximityPrompt")
-                            if prompt and prompt.Enabled then
-                                local originalPos = root.Position
-                                root.Anchored = true
-                                root.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
-                                task.wait(0.01)
-                                pressE()
-                                task.wait(collectDelay)
-                                root.CFrame = CFrame.new(originalPos)
-                                root.Anchored = false
-                            end
+                            local originalPos = root.Position
+                            root.Anchored = true
+                            root.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
+                            task.wait(0.01)
+                            pressE()
+                            task.wait(collectDelay)
+                            root.CFrame = CFrame.new(originalPos)
+                            root.Anchored = false
                         end
                     end
                 end
@@ -90,7 +88,8 @@ task.spawn(function()
         end)
 
         -- ปลดล็อกกล้องในทุก ๆ รอบ
-        Camera.CameraType = Enum.CameraType.Custom
-        task.wait(0.01)
+        
+        task.wait(0.1)
     end
+        Camera.CameraType = Enum.CameraType.Custom
 end)
