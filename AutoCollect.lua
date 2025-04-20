@@ -8,7 +8,7 @@ local Camera = workspace.CurrentCamera
 
 -- จำลองการกด E
 local function pressE()
-    for i = 1, 5 do
+    for i = 1, 2 do
         VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
         task.wait(0.01)
         VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
