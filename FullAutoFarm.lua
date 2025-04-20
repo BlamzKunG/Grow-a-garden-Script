@@ -9,7 +9,7 @@ local LocalPlayer = Players.LocalPlayer
 -- ตั้งค่า
 local collectDelay = 0.01
 local autoFarmCycleTime = 30
-getgenv().AutoCollect = true
+ 
 
 -- กด E 3 ครั้ง
 local function pressE()
@@ -100,7 +100,7 @@ lockCameraToFarm()
 -- Full AutoFarm Loop
 task.spawn(function()
 	while getgenv().FullAutoFarm do
-		getgenv().AutoCollect = true
+		 
 		local start = tick()
 
 		while tick() - start < autoFarmCycleTime do
@@ -125,7 +125,7 @@ task.spawn(function()
 			task.wait(0.01)
 		end
 
-		getgenv().AutoCollect = false
+		getgenv().FullAutoFarm = false
 		sellAll()
 		task.wait(1)
 	end
