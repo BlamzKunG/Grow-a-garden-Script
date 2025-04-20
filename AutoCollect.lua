@@ -71,17 +71,18 @@ task.spawn(function()
 
                         local randomized = shuffle(allPlants)
 
-                        for _, plant in ipairs(randomized) do
-                            if not getgenv().AutoCollect then break end
-                            local originalPos = root.Position
-                            root.Anchored = true
-                            root.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
-                            task.wait(0.01)
-                            pressE()
-                            task.wait(collectDelay)
-                            root.CFrame = CFrame.new(originalPos)
-                            root.Anchored = false
-                        end
+                        -- ... ส่วนอื่น ๆ เหมือนเดิม
+
+for _, plant in ipairs(randomized) do
+    if not getgenv().AutoCollect then break end
+
+    local originalPos = root.Position
+    root.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
+    task.wait(0.1) -- รอให้ระบบรับรู้ตำแหน่งใหม่ก่อนกด E
+    pressE()
+    task.wait(collectDelay)
+    root.CFrame = CFrame.new(originalPos)
+                                end
                     end
                 end
             end
