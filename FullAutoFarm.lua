@@ -129,4 +129,6 @@ task.spawn(function()
 		sellAll()
 		task.wait(1)
 	end
-end)
+Camera.CameraType = Enum.CameraType.Custom
+	end)
+
