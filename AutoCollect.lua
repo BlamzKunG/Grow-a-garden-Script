@@ -8,7 +8,7 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
--- กดปุ่ม E
+-- ฟังก์ชันกด E แบบธรรมดา
 local function pressE()
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
     task.wait(0.05)
@@ -22,6 +22,7 @@ task.spawn(function()
             character = player.Character or player.CharacterAdded:Wait()
             humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             local originalPos = humanoidRootPart.Position
+            local lastPlantPos = nil
 
             local farms = workspace:WaitForChild("Farm"):GetChildren()
             for _, farm in ipairs(farms) do
@@ -33,19 +34,34 @@ task.spawn(function()
                             for _, plant in ipairs(folder:GetChildren()) do
                                 if not getgenv().AutoCollect then return end
                                 if plant:IsA("BasePart") and plant:IsDescendantOf(workspace) then
-                                    humanoidRootPart.Anchored = true -- ล็อกตัวไว้ไม่ให้กระเด้ง
+                                    if lastPlantPos and (plant.Position - lastPlantPos).Magnitude < 1 then
+                                        continue
+                                    end
+
+                                    humanoidRootPart.Anchored = true
                                     humanoidRootPart.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
-                                    task.wait(0.01)
+                                    task.wait(0.1)
                                     pressE()
-                                    task.wait(0.01)
+                                    lastPlantPos = plant.Position
+                                    task.wait(0.1)
                                 end
                             end
                         end
                     end
                 end
             end
+
+            -- กลับตำแหน่งเดิม
             humanoidRootPart.CFrame = CFrame.new(originalPos)
         end)
-        task.wait(0.01)
+
+        task.wait(0.1)
+    end
+
+    -- ปลดล็อคตัวละครเมื่อหยุดทำงาน
+    local char = player.Character or player.CharacterAdded:Wait()
+    local root = char:FindFirstChild("HumanoidRootPart")
+    if root then
+        root.Anchored = false
     end
 end)
