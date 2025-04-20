@@ -125,7 +125,6 @@ task.spawn(function()
 			task.wait(0.01)
 		end
 
-		getgenv().FullAutoFarm = false
 		sellAll()
 		task.wait(1)
 	end
