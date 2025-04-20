@@ -6,7 +6,7 @@ local tab = DrRayLibrary.newTab("Main", "ImageIdHere")
 
 --loadstring(game:HttpGet(""))()
 
-tab.newToggle("ขายทั้งหมด", "ขายของในตัวทั้งหมดทุก 10 วินาที", false, function(AutoSell)
+tab.newButton("ขายทั้งหมด", "ขายของในตัวทั้งหมดทุก 10 วินาที", false, function(AutoSell)
     getgenv().AutoSell = AutoSell
     if AutoSell then
         getgenv().AutoSell = true
