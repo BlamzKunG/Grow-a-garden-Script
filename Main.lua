@@ -20,10 +20,10 @@ end)
 
 --ต่อไปกันงง##########################
 
-tab.newToggle("Auto เก็บ", "เก็บผัก/ผลไม้ทั้งหมดในสวน", false, function(AutoCollect)
-    getgenv().AutoCollect = AutoCollect
-    if AutoCollect then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/.lua"))()
+tab.newToggle("Auto ฟาร์ม", "เก็บผัก/ผลไม้ทั้งหมดในสวน + ขายของทั้งหมด", false, function(FullAutoFarm)
+    getgenv().FullAutoFarm = FullAutoFarm
+    if FullAutoFarm then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/FullAutoFarm.lua"))()
     end
 end)
 
