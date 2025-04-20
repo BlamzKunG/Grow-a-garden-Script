@@ -12,3 +12,10 @@ tab.newToggle("ขายทั้งหมด", "ขายของในตั�
         loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/My-roblox-sc/refs/heads/main/Ka1t.lua"))()
     end
 end)
+
+tab.newToggle("Auto เก็บ", "เก็บผัก/ผลไม้ทั้งหมดในสวน", false, function(all)
+    getgenv().all = all
+    if all then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/My-roblox-sc/refs/heads/main/Ka1t.lua"))()
+    end
+end)
