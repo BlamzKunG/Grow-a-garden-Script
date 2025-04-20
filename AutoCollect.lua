@@ -35,19 +35,17 @@ task.spawn(function()
                                 if plant:IsA("BasePart") and plant:IsDescendantOf(workspace) then
                                     humanoidRootPart.Anchored = true -- ล็อกตัวไว้ไม่ให้กระเด้ง
                                     humanoidRootPart.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
-                                    task.wait(0.05)
+                                    task.wait(0.01)
                                     pressE()
-                                    task.wait(0.05)
+                                    task.wait(0.01)
                                 end
                             end
                         end
                     end
                 end
             end
-
             humanoidRootPart.CFrame = CFrame.new(originalPos)
-            humanoidRootPart.Anchored = true -- ปลดล็อกตัว
         end)
-        task.wait(0.1)
+        task.wait(0.01)
     end
 end)
