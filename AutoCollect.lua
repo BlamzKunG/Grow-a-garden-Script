@@ -1,6 +1,6 @@
 getgenv().AutoCollect = true
 
-local collectDelay = 0.1
+local collectDelay = 0.01
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -78,7 +78,7 @@ for _, plant in ipairs(randomized) do
 
     local originalPos = root.Position
     root.CFrame = plant.CFrame + Vector3.new(0, 3, 0)
-    task.wait(0.1) -- รอให้ระบบรับรู้ตำแหน่งใหม่ก่อนกด E
+    task.wait(0.01) -- รอให้ระบบรับรู้ตำแหน่งใหม่ก่อนกด E
     pressE()
     task.wait(collectDelay)
     root.CFrame = CFrame.new(originalPos)
@@ -90,7 +90,7 @@ for _, plant in ipairs(randomized) do
 
         -- ปลดล็อกกล้องในทุก ๆ รอบ
         
-        task.wait(0.1)
+        task.wait(0.01)
     end
         Camera.CameraType = Enum.CameraType.Custom
 end)
