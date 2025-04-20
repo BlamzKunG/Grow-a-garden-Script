@@ -8,9 +8,12 @@ local Camera = workspace.CurrentCamera
 
 -- จำลองการกด E
 local function pressE()
-    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-    task.wait(0.01)
-    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+    for i = 1, 5 do
+        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+        task.wait(0.01)
+        VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+        task.wait(0.01)
+    end
 end
 
 -- ล็อกกล้องไปยัง Owner_Tag ของฟาร์มเรา
