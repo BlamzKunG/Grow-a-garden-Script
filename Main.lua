@@ -9,12 +9,21 @@ tab.newButton("ขายทั้งหมด", "ขายของในตั�
     loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/Sellall.lua"))()
 end)
 
---ต่อไปกันงง############################
+--ต่อไปกันงง##########################
 
 tab.newToggle("Auto เก็บ", "เก็บผัก/ผลไม้ทั้งหมดในสวน", false, function(AutoCollect)
     getgenv().AutoCollect = AutoCollect
     if AutoCollect then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/AutoCollect.lua"))()
+    end
+end)
+
+--ต่อไปกันงง##########################
+
+tab.newToggle("Auto เก็บ", "เก็บผัก/ผลไม้ทั้งหมดในสวน", false, function(AutoCollect)
+    getgenv().AutoCollect = AutoCollect
+    if AutoCollect then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/.lua"))()
     end
 end)
 
