@@ -20,10 +20,13 @@ tab.newToggle("Auto เก็บของรอบตัว", "เก็บผ�
     end
 end)
 
-tab.newToggle("Auto ขายเมื่อของเต็ม", "ขายเมื่อของเต็ม", false, function(AutoSell)
-    getgenv().AutoSell = AutoSell
-    if AutoSell then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/AutoSell.lua"))()
+tab.newDropdown("วาร์ป", "เลือกจุดวาร์ป", {"Quest", "Easter"}, function(selectedOption)
+    print(selectedOption)
+
+    if selectedOption == "Quest" then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/Tpa.lua"))()
+    elseif selectedOption == "Easter" then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/Tpe.lua"))()
     end
 end)
 
