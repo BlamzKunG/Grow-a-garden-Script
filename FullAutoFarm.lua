@@ -75,7 +75,7 @@ local function sellAll()
     ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("Sell_Inventory"):FireServer()
 
     -- กลับ
-    task.wait(2)
+    task.wait(1)
     root.CFrame = CFrame.new(originalPos)
 
     -- ปลดล็อกกล้อง
