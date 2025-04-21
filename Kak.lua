@@ -6,7 +6,7 @@ local Camera            = workspace.CurrentCamera
 local LocalPlayer       = Players.LocalPlayer
 
 local collectDelay      = 0.01
-local autoFarmCycleTime = 30
+local collectLimit      = 200 -- วนเก็บ 200 ครั้งก่อนขาย
 local sellPos           = Vector3.new(61, 2, 0) -- ตำแหน่งพ่อค้า
 
 local isSelling = false
@@ -37,11 +37,12 @@ local function collectAvailablePlants()
     local root = char:WaitForChild("HumanoidRootPart")
 
     for _, farm in ipairs(workspace.Farm:GetChildren()) do
+        if isSelling then return end -- หยุดทันทีถ้ากำลังขาย
         if isOwnedByPlayer(farm) then
             local phys = farm:FindFirstChild("Important") and farm.Important:FindFirstChild("Plants_Physical")
             if phys then
                 for _, prompt in ipairs(phys:GetDescendants()) do
-                    if isSelling then return end -- หยุดทันทีถ้ากำลังขาย
+                    if isSelling then return end
                     if prompt:IsA("ProximityPrompt") and prompt.Enabled then
                         local orig = root.Position
                         root.CFrame = prompt.Parent.CFrame
@@ -56,12 +57,11 @@ local function collectAvailablePlants()
     end
 end
 
--- ฟังก์ชันขายของแบบใหม่
+-- ฟังก์ชันขายของ
 local function sellAll()
     isSelling = true
     task.wait(0.5)
-    local player = Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
     local root = character:WaitForChild("HumanoidRootPart")
     local originalPos = root.Position
 
@@ -76,33 +76,30 @@ local function sellAll()
     task.wait(2)
     root.CFrame = CFrame.new(originalPos)
 
-    -- ปลดล็อกกล้อง
-    Camera.CameraType = Enum.CameraType.Custom
-
     isSelling = false
 end
 
--- เริ่มต้น
+-- เริ่มต้นล็อกกล้อง
 lockCameraToFarm()
 
--- ลูปเก็บของ (หยุดขณะขาย)
+-- ลูปหลัก: วนเก็บ 200 ครั้งแล้วขาย
 task.spawn(function()
-    while true do
-        if getgenv().FullAutoFarm and not isSelling then
-            pcall(collectAvailablePlants)
+    while getgenv().FullAutoFarm do
+        for i = 1, collectLimit do
+            if not getgenv().FullAutoFarm then break end
+            if not isSelling then
+                pcall(collectAvailablePlants)
+            end
+            task.wait(0.1)
         end
-        task.wait(0.1)
-   end
-Camera.CameraType = Enum.CameraType.Custom
-    end)
--- ลูปขายของทุกรอบ
-task.spawn(function()
-    while true do
-        task.wait(autoFarmCycleTime)
-        if getgenv().FullAutoFarm then
-            pcall(sellAll)
-            lockCameraToFarm() -- รีล็อกกล้องหลังขาย
-       end
-   Camera.CameraType = Enum.CameraType.Custom
-        end
-    end)
+
+        if not getgenv().FullAutoFarm then break end
+
+        pcall(sellAll)
+        lockCameraToFarm() -- ล็อกกล้องกลับหลังขาย
+        task.wait(0.5)
+    end
+
+    -- ปลดล็อกกล้องหลังหยุดทำงาน
+    Camera.CameraType = Enum.CameraType.Custom
+end)
