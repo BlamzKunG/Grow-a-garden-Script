@@ -59,7 +59,7 @@ end
 -- ฟังก์ชันขายของแบบใหม่
 local function sellAll()
     isSelling = true
-
+    task.wait(0.5)
     local player = Players.LocalPlayer
     local character = player.Character or player.CharacterAdded:Wait()
     local root = character:WaitForChild("HumanoidRootPart")
@@ -67,13 +67,14 @@ local function sellAll()
 
     -- วาร์ปไปขาย
     root.CFrame = CFrame.new(sellPos + Vector3.new(0, 3, 0))
-    task.wait(1)
+    task.wait(0.1)
 
     -- ยิง Remote
+    root.CFrame = CFrame.new(sellPos + Vector3.new(0, 3, 0))
     ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("Sell_Inventory"):FireServer()
 
     -- กลับ
-    task.wait(3)
+    task.wait(5)
     root.CFrame = CFrame.new(originalPos)
 
     -- ปลดล็อกกล้อง
