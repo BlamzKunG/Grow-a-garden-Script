@@ -93,6 +93,7 @@ task.spawn(function()
         end
         task.wait(0.1)
     end
+   Camera.CameraType = Enum.CameraType.Custom
 end)
 
 -- ลูปขายของทุกรอบ
@@ -105,5 +106,5 @@ task.spawn(function()
             lockCameraToFarm()
         end
     end
-        Camera.CameraType = Enum.CameraType.Custom
+     Camera.CameraType = Enum.CameraType.Custom
 end)
