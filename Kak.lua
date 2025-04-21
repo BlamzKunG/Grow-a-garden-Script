@@ -6,7 +6,7 @@ local Camera            = workspace.CurrentCamera
 local LocalPlayer       = Players.LocalPlayer
 
 local collectDelay      = 0.01
-local collectLimit      = 200 -- วนเก็บ 200 ครั้งก่อนขาย
+local collectLimit      = 50 -- วนเก็บ 200 ครั้งก่อนขาย
 local sellPos           = Vector3.new(61, 2, 0) -- ตำแหน่งพ่อค้า
 
 local isSelling = false
@@ -97,7 +97,7 @@ task.spawn(function()
 
         pcall(sellAll)
         lockCameraToFarm() -- ล็อกกล้องกลับหลังขาย
-        task.wait(0.5)
+        task.wait(3)
     end
 
     -- ปลดล็อกกล้องหลังหยุดทำงาน
