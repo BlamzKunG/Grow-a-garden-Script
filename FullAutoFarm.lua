@@ -70,11 +70,12 @@ local function sellAll()
     task.wait(0.1)
 
     -- ยิง Remote
-    root.CFrame = CFrame.new(sellPos + Vector3.new(0, 3, 0))
+    root.CFrame = CFrame.new(sellPos)
+    task.wait(0.1)
     ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("Sell_Inventory"):FireServer()
 
     -- กลับ
-    task.wait(5)
+    task.wait(2)
     root.CFrame = CFrame.new(originalPos)
 
     -- ปลดล็อกกล้อง
