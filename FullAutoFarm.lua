@@ -105,5 +105,6 @@ task.spawn(function()
             pcall(sellAll)
             lockCameraToFarm() -- รีล็อกกล้องหลังขาย
         end
-    end
+  end
+   Camera.CameraType = Enum.CameraType.Custom        
 end)
