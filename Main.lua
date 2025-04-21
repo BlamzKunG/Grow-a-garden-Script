@@ -13,7 +13,7 @@ end)
 
 --ต่อไปกันงง##########################
 
-tab.newToggle("Auto เก็บ", "เก็บผัก/ผลไม้ทั้งหมดในสวน", false, function(AutoCollect)
+tab.newToggle("Auto เก็บของรอบตัว", "เก็บผัก/ผลไม้ทั้งหมดในสวนเร็วมาก", false, function(AutoCollect)
     getgenv().AutoCollect = AutoCollect
     if AutoCollect then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/AutoCollect.lua"))()
