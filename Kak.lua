@@ -59,7 +59,7 @@ end
 -- ฟังก์ชันขายของแบบใหม่
 local function sellAll()
     isSelling = true
-    task.wait(0.1)
+    task.wait(0.5)
     local player = Players.LocalPlayer
     local character = player.Character or player.CharacterAdded:Wait()
     local root = character:WaitForChild("HumanoidRootPart")
@@ -67,7 +67,7 @@ local function sellAll()
 
     -- วาร์ปไปขาย
     root.CFrame = CFrame.new(sellPos + Vector3.new(0, 3, 0))
-    task.wait(0.1)
+    task.wait(0.5)
 
     -- ยิง Remote
     ReplicatedStorage:WaitForChild("GameEvents"):WaitForChild("Sell_Inventory"):FireServer()
@@ -92,9 +92,9 @@ task.spawn(function()
             pcall(collectAvailablePlants)
         end
         task.wait(0.1)
-    end
-end)
+   end
 Camera.CameraType = Enum.CameraType.Custom
+    end)
 -- ลูปขายของทุกรอบ
 task.spawn(function()
     while true do
@@ -102,7 +102,7 @@ task.spawn(function()
         if getgenv().FullAutoFarm then
             pcall(sellAll)
             lockCameraToFarm() -- รีล็อกกล้องหลังขาย
+       end
+   Camera.CameraType = Enum.CameraType.Custom
         end
-    end
-Camera.CameraType = Enum.CameraType.Custom
     end)
