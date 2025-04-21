@@ -24,7 +24,7 @@ tab.newDropdown("วาร์ป", "เลือกจุดวาร์ป", {"
     print(selectedOption)
 
     if selectedOption == "Quest" then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/Tpa.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/Tpq.lua"))()
     elseif selectedOption == "Easter" then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/Tpe.lua"))()
     end
