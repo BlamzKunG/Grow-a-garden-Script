@@ -1,107 +1,46 @@
 getgenv().AutoCollect = true
 
-local collectDelay = 0.01
-local VirtualInputManager = game:GetService("VirtualInputManager")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
-local Camera = workspace.CurrentCamera
 
--- จำลองการกด E
-local function pressE()
-    for i = 1, 3 do
-        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
-        task.wait(0.01)
-        VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
-        task.wait(0.01)
-    end
+local collectDelay = 0.01
+
+-- ตรวจว่าเป็นฟาร์มของเรา
+local function isOwnedByPlayer(farm)
+    local data = farm:FindFirstChild("Important") and farm.Important:FindFirstChild("Data")
+    return data and data:FindFirstChild("Owner") and data.Owner.Value == LocalPlayer.Name
 end
 
--- ล็อกกล้องไปยัง Owner_Tag ของฟาร์มเรา
-local function lockCameraToFarm()
-    local farms = workspace:WaitForChild("Farm"):GetChildren()
-    for _, farm in ipairs(farms) do
-        local data = farm:FindFirstChild("Important") and farm.Important:FindFirstChild("Data")
-        if data and data:FindFirstChild("Owner") and data.Owner.Value == LocalPlayer.Name then
-            local ownerTag = farm:FindFirstChild("Owner_Tag")
-            if ownerTag then
-                Camera.CameraType = Enum.CameraType.Scriptable
-                Camera.CFrame = CFrame.new(ownerTag.Position + Vector3.new(0, 10, 0), ownerTag.Position)
-                return true
-            end
-        end
-    end
-    return false
-end
+-- เก็บของอัตโนมัติ (วาร์ปไปยิง prompt)
+local function collectAvailablePlants()
+    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local root = char:WaitForChild("HumanoidRootPart")
 
--- สลับลำดับสุ่ม
-local function shuffle(tbl)
-    for i = #tbl, 2, -1 do
-        local j = math.random(i)
-        tbl[i], tbl[j] = tbl[j], tbl[i]
-    end
-    return tbl
-end
-
--- เริ่มล็อกกล้องครั้งแรก
-lockCameraToFarm()
-
--- ตารางเก็บรายชื่อต้นไม้ที่ยังไม่เก็บ
-local unvisitedPlants = {}
-
--- ฟังก์ชันรีเฟรชลิสต์ต้นไม้ใหม่
-local function refreshPlants()
-    local farms = workspace:WaitForChild("Farm"):GetChildren()
-    for _, farm in ipairs(farms) do
-        local success, owner = pcall(function()
-            return farm.Important.Data.Owner.Value
-        end)
-
-        if success and owner == LocalPlayer.Name then
-            local physical = farm.Important:FindFirstChild("Plants_Physical")
-            if physical then
-                local allPlants = {}
-
-                for _, folder in ipairs(physical:GetChildren()) do
-                    for _, plant in ipairs(folder:GetChildren()) do
-                        if plant:IsA("BasePart") then
-                            table.insert(allPlants, plant)
-                        end
+    for _, farm in ipairs(workspace:WaitForChild("Farm"):GetChildren()) do
+        if isOwnedByPlayer(farm) then
+            local phys = farm:FindFirstChild("Important") and farm.Important:FindFirstChild("Plants_Physical")
+            if phys then
+                for _, prompt in ipairs(phys:GetDescendants()) do
+                    if not getgenv().AutoCollect then return end
+                    if prompt:IsA("ProximityPrompt") and prompt.Enabled then
+                        local orig = root.Position
+                        root.CFrame = prompt.Parent.CFrame
+                        task.wait(0.05)
+                        fireproximityprompt(prompt)
+                        task.wait(collectDelay)
+                        root.CFrame = CFrame.new(orig)
                     end
                 end
-
-                unvisitedPlants = shuffle(allPlants)
             end
         end
     end
 end
 
--- เรียกครั้งแรก
-refreshPlants()
-
--- ฟังก์ชันหลัก
+-- เรียกใช้ใน loop ของคุณเอง
 task.spawn(function()
-    while getgenv().AutoCollect do
-        pcall(function()
-            local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-            local root = character:WaitForChild("HumanoidRootPart")
-
-            if #unvisitedPlants == 0 then
-                refreshPlants()
-            end
-
-            local currentPlant = table.remove(unvisitedPlants) -- ดึงต้นปัจจุบัน
-
-            if currentPlant and currentPlant:IsDescendantOf(workspace) then
-                local originalPos = root.Position
-                root.CFrame = currentPlant.CFrame + Vector3.new(0, 0, 0)
-                task.wait(0.01)
-                pressE()
-                task.wait(collectDelay)
-                root.CFrame = CFrame.new(originalPos)
-            end
-        end)
-
-        task.wait(0.01)
+    while true do
+        if not getgenv().AutoCollect then break end
+        pcall(collectAvailablePlants)
+        task.wait(0.1)
     end
-    Camera.CameraType = Enum.CameraType.Custom
 end)
