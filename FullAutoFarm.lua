@@ -6,7 +6,7 @@ local Camera            = workspace.CurrentCamera
 local LocalPlayer       = Players.LocalPlayer
 
 local collectDelay      = 0.01
-local autoFarmCycleTime = 30
+local autoFarmCycleTime = 15
 local sellPos           = Vector3.new(61, 2, 0) -- ตำแหน่งพ่อค้า
 
 local isSelling = false
