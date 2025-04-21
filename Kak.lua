@@ -5,7 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Camera            = workspace.CurrentCamera
 local LocalPlayer       = Players.LocalPlayer
 
-local collectDelay      = 0.01
+local collectDelay      = 0.002
 local sellPos           = Vector3.new(61, 2, 0)
 local isSelling         = false
 
