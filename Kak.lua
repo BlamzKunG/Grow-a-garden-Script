@@ -105,4 +105,5 @@ task.spawn(function()
             lockCameraToFarm()
         end
     end
+        Camera.CameraType = Enum.CameraType.Custom
 end)
