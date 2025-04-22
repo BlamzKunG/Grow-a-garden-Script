@@ -85,7 +85,7 @@ task.spawn(function()
 
         -- เก็บต่อเนื่อง 30 วินาที
         local start = tick()
-        while tick() - start < 10 do
+        while tick() - start < 8 do
             if not getgenv().FullAutoFarm then
                 Camera.CameraType = Enum.CameraType.Custom
                 return
