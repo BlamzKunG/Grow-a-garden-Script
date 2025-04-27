@@ -21,7 +21,7 @@ tab.newToggle("Auto เก็บของรอบตัว", "เก็บผ�
     end
 end)
 
-tab.newDropdown("วาร์ป", "เลือกจุดวาร์ป", {"Quest", "Easter"}, function(selectedOption)
+tab.newDropdown("วาร์ป", "เลือกจุดวาร์ป", {"Quest", "Event"}, function(selectedOption)
     print(selectedOption)
 
     if selectedOption == "Quest" then
