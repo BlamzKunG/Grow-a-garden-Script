@@ -6,6 +6,6 @@ local window = DrRayLibrary:Load("TikTok:Lxxuak", "Default")
 local tab = DrRayLibrary.newTab("Main", "ImageIdHere")
 --loadstring(game:HttpGet(""))()
 
-tab.newButton("ขายทั้งหมด", "ขายของในตัวทั้งหมด", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/Gagg/refs/heads/main/Sellall.lua"))()
+tab.newButton("Kill All", "Kill all players", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/My-roblox-sc/refs/heads/main/KA_N.lua"))()
 end)
