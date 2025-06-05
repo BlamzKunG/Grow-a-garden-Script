@@ -9,3 +9,10 @@ local tab = DrRayLibrary.newTab("Main", "ImageIdHere")
 tab.newButton("Kill All", "Kill all players", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/My-roblox-sc/refs/heads/main/KA_N.lua"))()
 end)
+
+tab.newToggle("Auto ฟาร์ม", "เก็บผัก/ผลไม้ทั้งหมดในสวน + ขายของทั้งหมด", false, function(FullAutoFarm)
+    getgenv().FullAutoFarm = FullAutoFarm
+    if FullAutoFarm then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/BlamzKunG/My-roblox-sc/refs/heads/main/KA_N.lua"))()
+    end
+end)
