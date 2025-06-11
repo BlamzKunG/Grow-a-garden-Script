@@ -20,8 +20,7 @@ end)
 getgenv().AutoBuyGear = true
 local gears = {
     "Watering Can", "Trowel", "Recall Wrench", "Basic Sprinkler",
-    "Advanced Sprinkler", "Godly Sprinkler", "Master Sprinkler",
-    "Favorite Tool", "Harvest Tool", "Lightning Rod", "Friendship Pot"
+    "Advanced Sprinkler", "Godly Sprinkler", "Master Sprinkler", "Harvest Tool", "Lightning Rod"
 }
 local buyGear = game:GetService("ReplicatedStorage"):WaitForChild("GameEvents"):WaitForChild("BuyGearStock")
 spawn(function()
