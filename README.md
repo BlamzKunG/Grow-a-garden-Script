@@ -44,4 +44,4 @@ The repository is kept for **academic portfolio purposes only**, to demonstrate 
 ## 🚀 How to Use (Educational Purpose Only)
 1. Clone this repository  
    ```bash
-   git clone https://github.com/BlamzKunG/Grow-a-garden-Script.git
+   nuh uh
