@@ -33,7 +33,7 @@ not for cheating or violating Roblox’s Terms of Service.
 
 ---
 
-## 🚀 โคลน repo (For Study Only)  
+## 🚀 Clone this repository (For Study Only)  
 1. Clone repo นี้  
    ```bash
    git clone https://github.com/BlamzKunG/Grow-a-garden-Script.git
